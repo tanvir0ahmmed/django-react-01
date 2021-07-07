@@ -23,3 +23,7 @@
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
 /backend/db.sqlite3
+
+/backend/blog/blog/__pycache__
+/backend/blog/api/__pycache__
+/backend/blog/blog/migrations
