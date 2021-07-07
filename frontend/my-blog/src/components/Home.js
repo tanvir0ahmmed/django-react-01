@@ -2,33 +2,44 @@ import React, { useState, useEffect } from 'react';
 import Blog from './Blog';
 import { Link } from 'react-router-dom';
 import Form from './Form';
+import ApiService from '../lib/js/ApiService';
+import {useHistory} from 'react-router-dom';
+import {useCookies} from 'react-cookie';
 const Home = () => {
 	const [articles, setArticles] = useState([]);
 	const [formData, setFormData] = useState([]);
 	const [upAdd, setUpAdd] = useState('update');
 	const [formField, setformField] = useState(false);
+	const [token] = useCookies(['mytoken'])
+	let history = useHistory()
+
+
 	useEffect(() => {
-		fetch('http://127.0.0.1:8000/articales/', {
-			'method': 'GET',
-			//method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': 'Token 2ccce7d6e9cc7761d0155e0bf811280fe75780ac',
-			}
-		})
-			.then((response) => response.json())
-			.then((response) => setArticles(response))
-			.catch((error) => console.log(error))
-	}, [])
+		if(token['mytoken']){
+			history.push('/home')
+		}
+		else history.push('/')
+		
+	}, [history, token])
+
+	useEffect(() => {
+		ApiService.FetchData()
+		.then((response) => setArticles(response))
+		.catch((error) => console.log(error))
+			
+		}, [formField])
+
 	//console.log(articles)
 	const updateClick = (article,upadd) => {
-		//console.log(article)
 		setFormData(article)
 		upAddClick1(upadd)
 	}
+
 	const upAddClick = (prop) => {
+		console.log('-->',prop)
 		if (prop === 'update')
 			setUpAdd('update')
+		else if(prop === 'delete') setUpAdd('delete')
 		else setUpAdd('add')
 		if(formField) setformField(false)
 		else setformField(true)
@@ -58,7 +69,7 @@ const Home = () => {
 			{articles.map(article => {
 				return(
 					<div key = {article.id}>
-						<Blog articales={article} updateClick={()=>{updateClick(article,'update')}}/>
+						<Blog articales={article} upAddClick={()=>{upAddClick('delete')}} updateClick={()=>{updateClick(article,'update')}}/>
 					</div>
 				)
 			})}

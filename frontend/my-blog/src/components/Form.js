@@ -1,20 +1,46 @@
 import React, { useState, useEffect } from 'react';
-
+import ApiService from '../lib/js/ApiService';
 const Form = (props) => {
-    //console.log(props.formData.title)
+    console.log(props.formData)
     const [title, setTitle] = useState(props.formData.title)
     const [description, setDescription] = useState(props.formData.description)
-    console.log(props.upadd)
+    console.log(props.formData.user)
     useEffect(() => {
         setTitle(props.formData.title)
         setDescription(props.formData.description)
     }, [props])
+
+    //const user = props.formData.user
+    const user = 2
+
+    const addBlog = () => {
+        ApiService.AddArticle({title,description,user})
+        .then((response) =>console.log(response))
+        .catch((error) => errorFunction(error))
+    }
+
+    const updateBlog = () => {
+        ApiService.UpdateArticle(props.formData.id, {user,title,description})
+        .then((response) =>console.log(response))
+        .catch((error) => errorFunction(error))
+    }
+    const errorFunction = (err) => {
+        console.log(err)
+    }
+
+    const handleClickEventFunc = (prop,func) => {
+        console.log('i am calling')
+        props.upAddClick(prop)
+        func()
+
+    }
+
     return (
         <div className="form-section container">
             <div className="card">
                 <div className="card-body">
                     <span type="lable">
-                        Title
+                        Title ✈ 
                     </span>
                     <input type="text"
                         className="form-control"
@@ -23,7 +49,6 @@ const Form = (props) => {
                         onChange={(e) => setTitle(e.target.value)}
 
                     />
-
                     <span type="lable">
                         Description
                     </span>
@@ -36,8 +61,8 @@ const Form = (props) => {
                     />
                     {
                     (props.upadd === 'update') 
-                    ? <button className="btn btn-primary mt-2" onClick={()=>{props.upAddClick('update')}}>Update</button>
-                    :<button className="btn btn-primary mt-2" onClick={()=>{props.upAddClick('add')}}>Add</button>}
+                    ? <button className="btn btn-primary mt-2" onClick={()=>handleClickEventFunc('update',updateBlog)}>Update</button>
+                    :<button className="btn btn-primary mt-2" onClick={()=>handleClickEventFunc('add',addBlog)}>Add</button>}
                 </div>
             </div>
 

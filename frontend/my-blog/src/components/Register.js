@@ -11,7 +11,7 @@ const Register = () => {
 						<input className="username form-control" type="text" />
 						<legend className="lable">Password</legend>
 						<input className="password form-control" type="password" />
-						<Link to="/login">
+						<Link to="/">
 							<button className="register-btn btn btn-primary" type="submit">
 								Register
 							</button>
@@ -19,7 +19,7 @@ const Register = () => {
 						<h4 className="reg-link">
 							{' '}
 							Have account? Please
-							<Link to="/login">
+							<Link to="/">
 								<a href="#"> Login</a>
 							</Link>
 						</h4>

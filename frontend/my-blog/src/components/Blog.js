@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
-
+import ApiService from '../lib/js/ApiService';
 const Blog = (props) => {
-    //console.log(props)
+    console.log(props)
+    const deleteArticle = () => {
+        ApiService.DeleteArticle(props.articales.id)
+        .catch(err =>console.error(err))
+    }
     return (
         <section className="blog-section">
             {/* <label>{props.articales.title}</label>
@@ -17,7 +21,8 @@ const Blog = (props) => {
                         <button type="button" className="btn btn-primary update-btn" onClick={()=>{props.updateClick(props.articales,'update')}}
                          
                         >Update Article</button>
-                        <button type="button" className="btn btn-danger delete-btn">Delete Article</button>
+                        <button type="button" className="btn btn-danger delete-btn" 
+                        onClick={()=>{deleteArticle();props.upAddClick('delete')}}>Delete Article</button>
                     </div>
                 </div>
             </div>
