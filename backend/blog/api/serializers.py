@@ -7,7 +7,7 @@ class ArticalesSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.user')
     class Meta:
         model = Articales
-        fields = ['title', 'description', 'created_at','owner', 'user']
+        fields = ['id','title', 'description', 'created_at','owner', 'user']
     
 
 class UserSerializer(serializers.ModelSerializer):

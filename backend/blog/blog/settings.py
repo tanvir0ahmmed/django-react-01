@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v#!d^byyd&nny=qoys2#k=@o1of@*%qsk9qpzd#%irmodwl7nf'
+SECRET_KEY = 'jiy9g^%j@_ey9aomtm9glj&m^qpf+0z-^ov3xfnd=qy5&tfq*m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,30 +39,64 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api.apps.ApiConfig',
+    'corsheaders',
     'rest_framework.authtoken',
-    #'corsheaders',
+    
 ]
 
 MIDDLEWARE = [
+    
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-""" CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-] """
+#CORS_ALLOW_ALL_ORIGINS=True
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]
-}
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000/"
+]
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000'
+)
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+""" CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+] """
 
 ROOT_URLCONF = 'blog.urls'
 
@@ -83,7 +117,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'blog.wsgi.application'
-#WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database

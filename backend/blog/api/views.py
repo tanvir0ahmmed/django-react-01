@@ -10,10 +10,10 @@ from rest_framework import permissions, viewsets
 from rest_framework.response import Response
 
 class ArticlesViewSet(viewsets.ModelViewSet):
-    permission_classes=[IsAuthenticated]
-    authentication_classes=[TokenAuthentication,]
     queryset = Articales.objects.all()
     serializer_class = ArticalesSerializer
+    permission_classes=[IsAuthenticated]
+    authentication_classes=(TokenAuthentication,)
     
     def perform_create(self, serializers):
         serializers.save(owner=self.request.user)
