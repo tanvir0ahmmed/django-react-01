@@ -11,14 +11,8 @@ export default function Login() {
 	let history = useHistory()
 
 	useEffect(() => {
-		console.log(token['mytoken'])
-		if(token['mytoken'] === 'undefined'){
-			console.log('call--')
+		if(token['mytoken']){
 			history.push('/home')
-		}
-		else {
-			console.log('call/')
-			history.push('/')
 		}
 	},[token, history])
 

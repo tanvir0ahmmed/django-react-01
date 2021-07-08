@@ -13,7 +13,6 @@ const Home = () => {
 	const [token] = useCookies(['mytoken'])
 	let history = useHistory()
 
-
 	useEffect(() => {
 		if(token['mytoken']){
 			history.push('/home')
@@ -23,11 +22,11 @@ const Home = () => {
 	}, [history, token])
 
 	useEffect(() => {
-		ApiService.FetchData()
+		ApiService.FetchData(token['mytoken'])
 		.then((response) => setArticles(response))
 		.catch((error) => console.log(error))
 			
-		}, [formField])
+		}, [formField,token])
 
 	//console.log(articles)
 	const updateClick = (article,upadd) => {

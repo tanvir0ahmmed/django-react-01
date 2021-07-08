@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import ApiService from '../lib/js/ApiService';
+import {useCookies} from 'react-cookie';
 const Blog = (props) => {
     console.log(props)
+    const [token] = useCookies(['mytoken'])
     const deleteArticle = () => {
-        ApiService.DeleteArticle(props.articales.id)
+        ApiService.DeleteArticle(props.articales.id,token['mytoken'])
         .catch(err =>console.error(err))
     }
     return (

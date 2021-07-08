@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ApiService from '../lib/js/ApiService';
+import {useCookies} from 'react-cookie';
+
 const Form = (props) => {
     console.log(props.formData)
     const [title, setTitle] = useState(props.formData.title)
     const [description, setDescription] = useState(props.formData.description)
     console.log(props.formData.user)
+    const [token] = useCookies(['mytoken'])
     useEffect(() => {
         setTitle(props.formData.title)
         setDescription(props.formData.description)
@@ -14,13 +17,13 @@ const Form = (props) => {
     const user = 2
 
     const addBlog = () => {
-        ApiService.AddArticle({title,description,user})
+        ApiService.AddArticle({title,description,user},token['mytoken'])
         .then((response) =>console.log(response))
         .catch((error) => errorFunction(error))
     }
 
     const updateBlog = () => {
-        ApiService.UpdateArticle(props.formData.id, {user,title,description})
+        ApiService.UpdateArticle(props.formData.id, {user,title,description},token['mytoken'])
         .then((response) =>console.log(response))
         .catch((error) => errorFunction(error))
     }
