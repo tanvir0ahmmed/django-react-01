@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState, useEffect, createContext, useContext} from 'react';
 import '../lib/Sass/_login.scss';
 import { Link } from 'react-router-dom';
 import ApiService from '../lib/js/ApiService';
@@ -7,19 +7,30 @@ import {useHistory} from 'react-router-dom';
 export default function Login() {
 	const [username,setUsername] = useState()
 	const [password,setPassword] = useState()
+	//const [token,setToken] = useCookies(['mytoken'])
 	const [token,setToken] = useCookies(['mytoken'])
+	//const [logData,setLogData] = useState({})
 	let history = useHistory()
-
+	//const InfoContext = createContext(logData);
 	useEffect(() => {
 		if(token['mytoken']){
-			history.push('/home')
+			history.push({
+				pathname:'/home',
+				//mydata:logData
+			})
 		}
 	},[token, history])
 
 	const logInBtn = () => {
 		ApiService.LogIn({username,password})
-		.then(response => setToken('mytoken',response.token))
+		.then(response => LogData(response))
 		.catch(error =>console.log(error))
+	}
+
+	const LogData = (response) => {
+		//setLogData(response)
+		setToken('mytoken',response.token)
+		//console.log('response',response)
 	}
 	return (
 		<section id="login-section">

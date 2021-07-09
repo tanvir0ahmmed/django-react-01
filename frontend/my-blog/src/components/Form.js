@@ -14,16 +14,17 @@ const Form = (props) => {
     }, [props])
 
     //const user = props.formData.user
-    const user = 2
+    console.log('User Info ->',props.userInfo)
+    //const user = 1
 
     const addBlog = () => {
-        ApiService.AddArticle({title,description,user},token['mytoken'])
+        ApiService.AddArticle({title,description},token['mytoken'])
         .then((response) =>console.log(response))
         .catch((error) => errorFunction(error))
     }
 
     const updateBlog = () => {
-        ApiService.UpdateArticle(props.formData.id, {user,title,description},token['mytoken'])
+        ApiService.UpdateArticle(props.formData.id, {title,description},token['mytoken'])
         .then((response) =>console.log(response))
         .catch((error) => errorFunction(error))
     }
