@@ -68,6 +68,7 @@ class ArticlesView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
   
 class UserViewSet(viewsets.ModelViewSet):
+    authentication_classes=(TokenAuthentication,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -79,6 +80,7 @@ class LogInViewSet(APIView):
         if user:
             token = Token.objects.create(user=user)
             return Response({'username':user.username, 'id':user.id, 'token':token.key}, status=status.HTTP_201_CREATED)
+        
         return Response({'error':'username or password is not match'}, status=status.HTTP_400_BAD_REQUEST)
     
 class LogOutViewSet(APIView):
@@ -86,7 +88,7 @@ class LogOutViewSet(APIView):
     authentication_classes=(TokenAuthentication,)
     def get(self, request):
         request.user.auth_token.delete()
-        return Response(status=status.HTTP_200_OK)
+        return Response({'massege':'successfully logout'},status=status.HTTP_200_OK)
     
     
 
