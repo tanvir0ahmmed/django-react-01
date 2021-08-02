@@ -1,0 +1,11 @@
+- ### Project title: Personal Blog System.
+- ### Project description<hr/>
+  - ### User can register and log into the system. After successfully login, the user can view, create, update, & delete the blog. Implementing a log-in system based on token authentication. There are two separate applications, one is `ReactJs` and another is `DRF`. Using fetch function in react to use api.
+- ### Project setup<hr/>
+  - ### DRF
+    - ### setup database from settings.py
+    - ### run `python manage.py makemigrations` and then `python manage.py migrate`
+    - ### run 'python manage.py runserver`
+  - ### ReactJs
+    - ### run `yarn add package.json` then `yarn start`
+- ### To see the project demo, please click [here](https://react-001ta.herokuapp.com/)
